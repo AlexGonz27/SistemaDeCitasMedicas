@@ -34,11 +34,17 @@ namespace SistemaDeCitasMedicas.Formas
             {
                 case 0:
                     textBox_CI.Enabled = true;
+                    textBox_Nombre.Enabled = false;
+                    dataTime_FechaCita.Enabled = false;
                     break;
                 case 1:
+                    textBox_CI.Enabled = false;
                     textBox_Nombre.Enabled = true;
+                    dataTime_FechaCita.Enabled = false;
                     break;
                 case 2:
+                    textBox_CI.Enabled = false;
+                    textBox_Nombre.Enabled = false;
                     dataTime_FechaCita.Enabled = true;
                     break;
                 default:
