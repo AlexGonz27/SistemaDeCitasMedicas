@@ -62,39 +62,39 @@ namespace SistemaDeCitasMedicas.Formas
             DataTime_FechaCita.Value = DateTime.Today;
             Numerico_Edad.Value = 0;
         }
+        public void reestablecer()
+        {
+            limpiar();
+            btn_Agregar.Enabled = true;
+            btn_modificar.Enabled = false;
+            btn_eliminar.Enabled = false;
+            btn_Cancelar.Enabled = false;
+        }
 
         private void btn_Agregar_Click(object sender, EventArgs e)
         {
-            int pos;
-            bool esNumero = int.TryParse(textBox_CI.Text, out pos);
-            if (esNumero)
+            int pos = Citas.Buscar(Convert.ToInt32(textBox_CI.Text));
+            if (pos == -1)
             {
-                pos = Citas.Buscar(Convert.ToInt32(textBox_CI.Text));
-                if (pos == -1)
+                if (vef_Vacio())
                 {
-                    if (vef_Vacio())
-                    {
-                        Error("Rellene algún campo faltante");
-                        return;
-                    }
-                    Paciente paciente = new Paciente();
-                    paciente.CI = Convert.ToInt32(textBox_CI.Text.Trim());
-                    paciente.Nombre = textBox_Nombre.Text;
-                    paciente.Edad = Convert.ToInt32(Numerico_Edad.Value);
-                    paciente.Diagnostico = textBox_Diagnostico.Text;
-                    paciente.Sexo = comboBox_Sexo.Text;
-                    paciente.Discapacidad = comboBox_Discapacidad.Text;
-                    paciente.Especialidad = textBox_Especialidad.Text;
-                    paciente.FechaCita = DataTime_FechaCita.Text;
-                    limpiar();
-                    btn_modificar.Enabled = false;
-                    btn_eliminar.Enabled = false;
-                    Citas.guardar(paciente);
-                    Citas.Cargar(DGV_pacientes);
+                    Error("Rellene algún campo faltante");
+                    return;
                 }
-                else Error("El usuario ya existe");
+                Paciente paciente = new Paciente();
+                paciente.CI = Convert.ToInt32(textBox_CI.Text.Trim());
+                paciente.Nombre = textBox_Nombre.Text;
+                paciente.Edad = Convert.ToInt32(Numerico_Edad.Value);
+                paciente.Diagnostico = textBox_Diagnostico.Text;
+                paciente.Sexo = comboBox_Sexo.Text;
+                paciente.Discapacidad = comboBox_Discapacidad.Text;
+                paciente.Especialidad = textBox_Especialidad.Text;
+                paciente.FechaCita = DataTime_FechaCita.Text;
+                reestablecer();
+                Citas.guardar(paciente);
+                Citas.Cargar(DGV_pacientes);
             }
-            else Error("Es solo admitido números en el campo CI");
+            else Error("El usuario ya existe");
         }
 
         public void pintar_editar(int pos)
@@ -107,13 +107,31 @@ namespace SistemaDeCitasMedicas.Formas
             comboBox_Discapacidad.Text = Citas.LtPaciente(pos).Discapacidad.ToString();
             textBox_Especialidad.Text = Citas.LtPaciente(pos).Especialidad.ToString();
         }
-
-        private void btn_select_Click(object sender, EventArgs e)
+        private void btn_modificar_Click(object sender, EventArgs e)
         {
-            
-            permitir(true);
+            int pos = Citas.Buscar(Convert.ToInt32(textBox_CI.Text));
+            if (pos == valor || pos == -1)
+            {
+                if (vef_Vacio())
+                {
+                    Error("Rellene algún campo faltante");
+                    return;
+                }
+                Paciente paciente = new Paciente();
+                paciente.CI = Convert.ToInt32(textBox_CI.Text.Trim());
+                paciente.Nombre = textBox_Nombre.Text;
+                paciente.Edad = Convert.ToInt32(Numerico_Edad.Value);
+                paciente.Diagnostico = textBox_Diagnostico.Text;
+                paciente.Sexo = comboBox_Sexo.Text;
+                paciente.Discapacidad = comboBox_Discapacidad.Text;
+                paciente.Especialidad = textBox_Especialidad.Text;
+                paciente.FechaCita = DataTime_FechaCita.Text;
+                Citas.Actualizar(valor, paciente);
+                Citas.Cargar(DGV_pacientes);
+                reestablecer();
+            }
+            else Error("El usuario ya existe");
         }
-
         private void btn_eliminar_Click(object sender, EventArgs e)
         {
             int pos = Convert.ToInt32(textBox_CI.Text);
@@ -122,54 +140,9 @@ namespace SistemaDeCitasMedicas.Formas
                 Error("El usuario no esta registrado");
                 return;
             }
-            btn_Agregar.Enabled = true;
-            btn_modificar.Enabled = false;
-            btn_eliminar.Enabled = false;
-            limpiar();
+            reestablecer();
             Citas.Eliminar(pos);
             Citas.Cargar(DGV_pacientes);
-        }
-
-        private void btn_modificar_Click(object sender, EventArgs e)
-        {
-            int pos;
-            bool esNumero = int.TryParse(textBox_CI.Text, out pos);
-            if (esNumero)
-            {
-                pos = Citas.Buscar(Convert.ToInt32(textBox_CI.Text));
-                if (pos == -1)
-                {
-                    if (vef_Vacio())
-                    {
-                        Error("Rellene algún campo faltante");
-                        return;
-                    }
-                    Paciente paciente = new Paciente();
-                    paciente.CI = Convert.ToInt32(textBox_CI.Text.Trim());
-                    paciente.Nombre = textBox_Nombre.Text;
-                    paciente.Edad = Convert.ToInt32(Numerico_Edad.Value);
-                    paciente.Diagnostico = textBox_Diagnostico.Text;
-                    paciente.Sexo = comboBox_Sexo.Text;
-                    paciente.Discapacidad = comboBox_Discapacidad.Text;
-                    paciente.Especialidad = textBox_Especialidad.Text;
-                    paciente.FechaCita = DataTime_FechaCita.Text;
-                    Citas.Actualizar(valor, paciente);
-                    Citas.Cargar(DGV_pacientes);
-                    limpiar();
-                    btn_Agregar.Enabled = true;
-                    btn_modificar.Enabled = false;
-                    btn_eliminar.Enabled = false;
-                }
-                else Error("El usuario ya existe");
-            }
-            else Error("Es solo admitido números en el campo CI");
-            
-
-        }
-
-        private void Registro_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void DGV_pacientes_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -185,6 +158,20 @@ namespace SistemaDeCitasMedicas.Formas
                 btn_Agregar.Enabled = false;
                 btn_modificar.Enabled = true;
                 btn_eliminar.Enabled = true;
+                btn_Cancelar.Enabled = true;
+            }
+        }
+
+        private void btn_Cancelar_Click(object sender, EventArgs e)
+        {
+            reestablecer();
+        }
+
+        private void verificarChar(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
             }
         }
     }

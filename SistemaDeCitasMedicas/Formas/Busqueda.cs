@@ -14,7 +14,6 @@ namespace SistemaDeCitasMedicas.Formas
     public partial class Busqueda : Form
     {
         Citas Citas = new Citas();
-        string[] busqueda = { "CI", "Nombre", "FechaCita" };
         int pos;
         public Busqueda()
         {

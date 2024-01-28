@@ -49,6 +49,7 @@
             DGV_pacientes = new DataGridView();
             textBox_Diagnostico = new TextBox();
             DataTime_FechaCita = new DateTimePicker();
+            btn_Cancelar = new Button();
             ((System.ComponentModel.ISupportInitialize)Numerico_Edad).BeginInit();
             ((System.ComponentModel.ISupportInitialize)DGV_pacientes).BeginInit();
             SuspendLayout();
@@ -60,6 +61,7 @@
             textBox_CI.Name = "textBox_CI";
             textBox_CI.Size = new Size(100, 23);
             textBox_CI.TabIndex = 0;
+            textBox_CI.KeyPress += verificarChar;
             // 
             // comboBox_Sexo
             // 
@@ -84,7 +86,7 @@
             // 
             textBox_Especialidad.Location = new Point(109, 233);
             textBox_Especialidad.Name = "textBox_Especialidad";
-            textBox_Especialidad.Size = new Size(100, 23);
+            textBox_Especialidad.Size = new Size(172, 23);
             textBox_Especialidad.TabIndex = 7;
             // 
             // btn_Agregar
@@ -228,8 +230,9 @@
             // textBox_Diagnostico
             // 
             textBox_Diagnostico.Location = new Point(109, 149);
+            textBox_Diagnostico.MaxLength = 1;
             textBox_Diagnostico.Name = "textBox_Diagnostico";
-            textBox_Diagnostico.Size = new Size(100, 23);
+            textBox_Diagnostico.Size = new Size(45, 23);
             textBox_Diagnostico.TabIndex = 5;
             // 
             // DataTime_FechaCita
@@ -244,11 +247,23 @@
             DataTime_FechaCita.TabIndex = 24;
             DataTime_FechaCita.Value = new DateTime(2024, 1, 27, 23, 14, 3, 0);
             // 
+            // btn_Cancelar
+            // 
+            btn_Cancelar.Enabled = false;
+            btn_Cancelar.Location = new Point(349, 245);
+            btn_Cancelar.Name = "btn_Cancelar";
+            btn_Cancelar.Size = new Size(90, 35);
+            btn_Cancelar.TabIndex = 25;
+            btn_Cancelar.Text = "Cancelar";
+            btn_Cancelar.UseVisualStyleBackColor = true;
+            btn_Cancelar.Click += btn_Cancelar_Click;
+            // 
             // Registro
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(617, 561);
+            Controls.Add(btn_Cancelar);
             Controls.Add(DataTime_FechaCita);
             Controls.Add(DGV_pacientes);
             Controls.Add(comboBox_Discapacidad);
@@ -272,7 +287,6 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "Registro";
             Text = "Registro";
-            Load += Registro_Load;
             ((System.ComponentModel.ISupportInitialize)Numerico_Edad).EndInit();
             ((System.ComponentModel.ISupportInitialize)DGV_pacientes).EndInit();
             ResumeLayout(false);
@@ -303,5 +317,6 @@
         private DataGridView DGV_pacientes;
         private TextBox textBox_Diagnostico;
         private DateTimePicker DataTime_FechaCita;
+        private Button btn_Cancelar;
     }
 }
