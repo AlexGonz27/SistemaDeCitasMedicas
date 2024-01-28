@@ -36,10 +36,10 @@ namespace SistemaDeCitasMedicas.Formas
                     textBox_CI.Enabled = true;
                     break;
                 case 1:
-                    textBox_CI.Enabled = true;
+                    textBox_Nombre.Enabled = true;
                     break;
                 case 2:
-                    textBox_CI.Enabled = true;
+                    dataTime_FechaCita.Enabled = true;
                     break;
                 default:
                     break;

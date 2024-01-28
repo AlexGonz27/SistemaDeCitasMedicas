@@ -21,6 +21,10 @@ namespace SistemaDeCitasMedicas
             this.panel_Contenedor.Tag = FormHijo;
             FormHijo.Show();
         }
+        private void btn_Inicio_Click(object sender, EventArgs e)
+        {
+            abrirForma(new Inicio());
+        }
         private void btn_Registrar_Click(object sender, EventArgs e)
         {
             abrirForma(new Registro());
@@ -30,5 +34,6 @@ namespace SistemaDeCitasMedicas
         {
             abrirForma(new Busqueda());
         }
+
     }
 }

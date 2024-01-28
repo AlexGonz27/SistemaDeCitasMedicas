@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             textBox_CI = new TextBox();
             comboBox_Sexo = new ComboBox();
             textBox_Nombre = new TextBox();
@@ -47,7 +47,6 @@
             Numerico_Edad = new NumericUpDown();
             comboBox_Discapacidad = new ComboBox();
             DGV_pacientes = new DataGridView();
-            btn_select = new Button();
             textBox_Diagnostico = new TextBox();
             DataTime_FechaCita = new DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)Numerico_Edad).BeginInit();
@@ -212,28 +211,19 @@
             // DGV_pacientes
             // 
             DGV_pacientes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Window;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle3.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
-            DGV_pacientes.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Window;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
+            DGV_pacientes.DefaultCellStyle = dataGridViewCellStyle1;
             DGV_pacientes.Location = new Point(24, 305);
             DGV_pacientes.Name = "DGV_pacientes";
             DGV_pacientes.Size = new Size(570, 244);
             DGV_pacientes.TabIndex = 22;
-            // 
-            // btn_select
-            // 
-            btn_select.Location = new Point(227, 59);
-            btn_select.Name = "btn_select";
-            btn_select.Size = new Size(67, 23);
-            btn_select.TabIndex = 23;
-            btn_select.Text = "Select";
-            btn_select.UseVisualStyleBackColor = true;
-            btn_select.Click += btn_select_Click;
+            DGV_pacientes.CellContentClick += DGV_pacientes_CellContentClick;
             // 
             // textBox_Diagnostico
             // 
@@ -260,7 +250,6 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(617, 561);
             Controls.Add(DataTime_FechaCita);
-            Controls.Add(btn_select);
             Controls.Add(DGV_pacientes);
             Controls.Add(comboBox_Discapacidad);
             Controls.Add(Numerico_Edad);
@@ -312,7 +301,6 @@
         private NumericUpDown Numerico_Edad;
         private ComboBox comboBox_Discapacidad;
         private DataGridView DGV_pacientes;
-        private Button btn_select;
         private TextBox textBox_Diagnostico;
         private DateTimePicker DataTime_FechaCita;
     }

@@ -33,7 +33,7 @@ namespace SistemaDeCitasMedicas.Formas
                 return false;
             }
 
-            return true; 
+            return true;
         }
         public void Error(string Error)
         {
@@ -109,9 +109,6 @@ namespace SistemaDeCitasMedicas.Formas
                     Error("Coloque una CI valida");
                     return;
                 }
-                btn_Agregar.Enabled = false;
-                btn_modificar.Enabled = true;
-                btn_eliminar.Enabled = true;
                 valor = pos;
                 pintar_editar(pos);
             }
@@ -163,6 +160,22 @@ namespace SistemaDeCitasMedicas.Formas
         private void Registro_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void DGV_pacientes_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int indice = e.RowIndex;
+
+            DGV_pacientes.ClearSelection();
+
+            if (indice >= 0)
+            {
+                pintar_editar(indice);
+                valor = indice;
+                btn_Agregar.Enabled = false;
+                btn_modificar.Enabled = true;
+                btn_eliminar.Enabled = true;
+            }
         }
     }
 }

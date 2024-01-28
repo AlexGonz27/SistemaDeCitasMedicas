@@ -50,6 +50,7 @@
             btn_Inicio.TabIndex = 0;
             btn_Inicio.Text = "Inicio";
             btn_Inicio.UseVisualStyleBackColor = false;
+            btn_Inicio.Click += btn_Inicio_Click;
             // 
             // panel_Bar
             // 
