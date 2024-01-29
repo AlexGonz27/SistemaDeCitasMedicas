@@ -19,16 +19,16 @@ namespace SistemaDeCitasMedicas.Formas
         {
             InitializeComponent();
             DataTime_FechaCita.MinDate = DateTime.Today;
-            Citas.Cargar(DGV_pacientes);
+            Citas.Cargar_temp(DGV_pacientes);
         }
         public bool vef_Vacio()
         {
-            TextBox[] textBoxes = { textBox_CI, textBox_Diagnostico, textBox_Especialidad, textBox_Nombre };
+            TextBox[] textBoxes = { textBox_CI, textBox_Diagnostico, textBox_Especialidad, textBox_Nombre,textBox_Edad };
             for (int i = 0; i < textBoxes.Length; i++)
             {
                 if (textBoxes[i].Text == "") return true;
             }
-            if (comboBox_Discapacidad.Text == "" || comboBox_Sexo.Text == "" || Numerico_Edad.Value <= 0)
+            if (comboBox_Discapacidad.Text == "" || comboBox_Sexo.Text == "")
             {
                 return true;
             }
@@ -48,11 +48,11 @@ namespace SistemaDeCitasMedicas.Formas
             }
             comboBox_Discapacidad.Enabled = op;
             comboBox_Sexo.Enabled = op;
-            Numerico_Edad.Enabled = op;
+            textBox_Edad.Enabled = op;
         }
         public void limpiar()
         {
-            TextBox[] textBoxes = { textBox_CI, textBox_Diagnostico, textBox_Especialidad, textBox_Nombre };
+            TextBox[] textBoxes = { textBox_CI, textBox_Diagnostico, textBox_Especialidad, textBox_Nombre, textBox_Edad };
             for (int i = 0; i < textBoxes.Length; i++)
             {
                 textBoxes[i].Text = "";
@@ -60,7 +60,6 @@ namespace SistemaDeCitasMedicas.Formas
             comboBox_Discapacidad.SelectedIndex = -1;
             comboBox_Sexo.SelectedIndex = -1;
             DataTime_FechaCita.Value = DateTime.Today;
-            Numerico_Edad.Value = 0;
         }
         public void reestablecer()
         {
@@ -73,26 +72,26 @@ namespace SistemaDeCitasMedicas.Formas
 
         private void btn_Agregar_Click(object sender, EventArgs e)
         {
+            if (vef_Vacio())
+            {
+                Error("Rellene algún campo faltante");
+                return;
+            }
             int pos = Citas.Buscar(Convert.ToInt32(textBox_CI.Text));
             if (pos == -1)
             {
-                if (vef_Vacio())
-                {
-                    Error("Rellene algún campo faltante");
-                    return;
-                }
                 Paciente paciente = new Paciente();
                 paciente.CI = Convert.ToInt32(textBox_CI.Text.Trim());
                 paciente.Nombre = textBox_Nombre.Text;
-                paciente.Edad = Convert.ToInt32(Numerico_Edad.Value);
+                paciente.Edad = Convert.ToInt32(textBox_Edad.Text);
                 paciente.Diagnostico = textBox_Diagnostico.Text;
                 paciente.Sexo = comboBox_Sexo.Text;
                 paciente.Discapacidad = comboBox_Discapacidad.Text;
                 paciente.Especialidad = textBox_Especialidad.Text;
                 paciente.FechaCita = DataTime_FechaCita.Text;
                 reestablecer();
-                Citas.guardar(paciente);
-                Citas.Cargar(DGV_pacientes);
+                Citas.guardar_Temp(paciente);
+                Citas.Cargar_temp(DGV_pacientes);
             }
             else Error("El usuario ya existe");
         }
@@ -101,7 +100,7 @@ namespace SistemaDeCitasMedicas.Formas
         {
             textBox_CI.Text = Citas.LtPaciente(pos).CI.ToString();
             textBox_Nombre.Text = Citas.LtPaciente(pos).Nombre.ToString();
-            Numerico_Edad.Value = Citas.LtPaciente(pos).Edad;
+            textBox_Edad.Text = Citas.LtPaciente(pos).Edad.ToString();
             textBox_Diagnostico.Text = Citas.LtPaciente(pos).Diagnostico.ToString();
             comboBox_Sexo.Text = Citas.LtPaciente(pos).Sexo.ToString();
             comboBox_Discapacidad.Text = Citas.LtPaciente(pos).Discapacidad.ToString();
@@ -109,25 +108,25 @@ namespace SistemaDeCitasMedicas.Formas
         }
         private void btn_modificar_Click(object sender, EventArgs e)
         {
+            if (vef_Vacio())
+            {
+                Error("Rellene algún campo faltante");
+                return;
+            }
             int pos = Citas.Buscar(Convert.ToInt32(textBox_CI.Text));
             if (pos == valor || pos == -1)
             {
-                if (vef_Vacio())
-                {
-                    Error("Rellene algún campo faltante");
-                    return;
-                }
                 Paciente paciente = new Paciente();
                 paciente.CI = Convert.ToInt32(textBox_CI.Text.Trim());
                 paciente.Nombre = textBox_Nombre.Text;
-                paciente.Edad = Convert.ToInt32(Numerico_Edad.Value);
+                paciente.Edad = Convert.ToInt32(textBox_Edad.Text);
                 paciente.Diagnostico = textBox_Diagnostico.Text;
                 paciente.Sexo = comboBox_Sexo.Text;
                 paciente.Discapacidad = comboBox_Discapacidad.Text;
                 paciente.Especialidad = textBox_Especialidad.Text;
                 paciente.FechaCita = DataTime_FechaCita.Text;
                 Citas.Actualizar(valor, paciente);
-                Citas.Cargar(DGV_pacientes);
+                Citas.Cargar_temp(DGV_pacientes);
                 reestablecer();
             }
             else Error("El usuario ya existe");
@@ -142,7 +141,7 @@ namespace SistemaDeCitasMedicas.Formas
             }
             reestablecer();
             Citas.Eliminar(pos);
-            Citas.Cargar(DGV_pacientes);
+            Citas.Cargar_temp(DGV_pacientes);
         }
 
         private void DGV_pacientes_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -168,6 +167,14 @@ namespace SistemaDeCitasMedicas.Formas
         }
 
         private void verificarChar(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void verificarChar_Edad(object sender, KeyPressEventArgs e)
         {
             if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
             {

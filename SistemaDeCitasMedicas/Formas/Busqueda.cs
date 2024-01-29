@@ -19,9 +19,15 @@ namespace SistemaDeCitasMedicas.Formas
         {
             InitializeComponent();
             dataTime_FechaCita.MinDate = DateTime.Today;
-            Citas.Cargar(DGV_pacientes);
+            Citas.Cargar_temp(DGV_pacientes);
+            cargar_Globales();
         }
-
+        public void cargar_Globales()
+        {
+            label_CantDiscapacitados.Text = Citas.cant_Discapacitados().ToString();
+            label_cantMasculinos.Text = Citas.cant_Masculinos().ToString();
+            label_cantFemeninas.Text = Citas.cant_Femeninas().ToString();
+        }
         public void Error(string Error)
         {
             MessageBox.Show(Error, "Error", MessageBoxButtons.OK);
@@ -59,7 +65,7 @@ namespace SistemaDeCitasMedicas.Formas
                 case 0:
                     int CI;
                     bool esNumero = int.TryParse(textBox_CI.Text, out CI);
-                    if (esNumero) Citas.CargarCI(DGV_pacientes,CI);
+                    if (esNumero) Citas.CargarCI(DGV_pacientes, CI);
                     else
                     {
                         Error("Es solo admitido números en este campo");
@@ -67,10 +73,10 @@ namespace SistemaDeCitasMedicas.Formas
                     }
                     break;
                 case 1:
-                    Citas.Cargar_Nombre(DGV_pacientes,textBox_Nombre.Text);
+                    Citas.Cargar_Nombre(DGV_pacientes, textBox_Nombre.Text);
                     break;
                 case 2:
-                    Citas.Cargar_FechaCita(DGV_pacientes,dataTime_FechaCita.Text);
+                    Citas.Cargar_FechaCita(DGV_pacientes, dataTime_FechaCita.Text);
                     break;
             }
             if (pos >= 0)
@@ -82,6 +88,17 @@ namespace SistemaDeCitasMedicas.Formas
                 textBox_Nombre.Enabled = false;
                 dataTime_FechaCita.Enabled = false;
                 btn_buscar.Enabled = false;
+            }
+        }
+        private void btn_recargar_Click(object sender, EventArgs e)
+        {
+            Citas.Cargar_temp(DGV_pacientes);
+        }
+        private void verificarChar(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
             }
         }
     }

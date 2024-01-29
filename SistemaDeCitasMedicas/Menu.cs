@@ -1,12 +1,17 @@
 using SistemaDeCitasMedicas.Formas;
+using SistemaDeCitasMedicas.Clases;
 
 namespace SistemaDeCitasMedicas
 {
     public partial class Menu : Form
     {
+
+        Citas citas = new Citas();
         public Menu()
         {
             InitializeComponent();
+            abrirForma(new Inicio());
+            citas.Cargar_datos();
         }
         //Boton para abrir paneles en general
         void abrirForma(Form FormHijo)
@@ -35,5 +40,9 @@ namespace SistemaDeCitasMedicas
             abrirForma(new Busqueda());
         }
 
+        private void GuardarDatos(object sender, FormClosingEventArgs e)
+        {
+            citas.guardar();
+        }
     }
 }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Menu));
             btn_Inicio = new Button();
             panel_Bar = new Panel();
             btn_Buscar = new Button();
@@ -111,7 +112,6 @@
             // 
             // panel_Contenedor
             // 
-            panel_Contenedor.Dock = DockStyle.Fill;
             panel_Contenedor.Location = new Point(167, 0);
             panel_Contenedor.Name = "panel_Contenedor";
             panel_Contenedor.Size = new Size(617, 561);
@@ -125,8 +125,10 @@
             Controls.Add(panel_Contenedor);
             Controls.Add(panel_Bar);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Menu";
             Text = "Sistema Citas de GALA";
+            FormClosing += GuardarDatos;
             panel_Bar.ResumeLayout(false);
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)picture_Logo).EndInit();

@@ -69,5 +69,25 @@ namespace SistemaDeCitasMedicas.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap photo_5024185797661797417_y {
+            get {
+                object obj = ResourceManager.GetObject("photo_5024185797661797417_y", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap png_clipart_logo_health_care_medicine_hospital_automotive_battery {
+            get {
+                object obj = ResourceManager.GetObject("png_clipart_logo_health_care_medicine_hospital_automotive_battery", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

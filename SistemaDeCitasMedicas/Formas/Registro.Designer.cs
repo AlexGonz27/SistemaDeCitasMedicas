@@ -44,13 +44,12 @@
             label5 = new Label();
             label6 = new Label();
             label7 = new Label();
-            Numerico_Edad = new NumericUpDown();
             comboBox_Discapacidad = new ComboBox();
             DGV_pacientes = new DataGridView();
             textBox_Diagnostico = new TextBox();
             DataTime_FechaCita = new DateTimePicker();
             btn_Cancelar = new Button();
-            ((System.ComponentModel.ISupportInitialize)Numerico_Edad).BeginInit();
+            textBox_Edad = new TextBox();
             ((System.ComponentModel.ISupportInitialize)DGV_pacientes).BeginInit();
             SuspendLayout();
             // 
@@ -67,7 +66,7 @@
             // 
             comboBox_Sexo.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox_Sexo.FormattingEnabled = true;
-            comboBox_Sexo.Items.AddRange(new object[] { "Masculino\t", "Femenino" });
+            comboBox_Sexo.Items.AddRange(new object[] { "Masculino", "Femenino" });
             comboBox_Sexo.Location = new Point(108, 175);
             comboBox_Sexo.Name = "comboBox_Sexo";
             comboBox_Sexo.Size = new Size(101, 23);
@@ -193,13 +192,6 @@
             label7.TabIndex = 18;
             label7.Text = "Fecha de Cita";
             // 
-            // Numerico_Edad
-            // 
-            Numerico_Edad.Location = new Point(108, 117);
-            Numerico_Edad.Name = "Numerico_Edad";
-            Numerico_Edad.Size = new Size(46, 23);
-            Numerico_Edad.TabIndex = 19;
-            // 
             // comboBox_Discapacidad
             // 
             comboBox_Discapacidad.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -212,6 +204,8 @@
             // 
             // DGV_pacientes
             // 
+            DGV_pacientes.AllowUserToAddRows = false;
+            DGV_pacientes.AllowUserToDeleteRows = false;
             DGV_pacientes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = SystemColors.Window;
@@ -223,6 +217,7 @@
             DGV_pacientes.DefaultCellStyle = dataGridViewCellStyle1;
             DGV_pacientes.Location = new Point(24, 305);
             DGV_pacientes.Name = "DGV_pacientes";
+            DGV_pacientes.ReadOnly = true;
             DGV_pacientes.Size = new Size(570, 244);
             DGV_pacientes.TabIndex = 22;
             DGV_pacientes.CellContentClick += DGV_pacientes_CellContentClick;
@@ -258,16 +253,25 @@
             btn_Cancelar.UseVisualStyleBackColor = true;
             btn_Cancelar.Click += btn_Cancelar_Click;
             // 
+            // textBox_Edad
+            // 
+            textBox_Edad.Location = new Point(109, 117);
+            textBox_Edad.MaxLength = 3;
+            textBox_Edad.Name = "textBox_Edad";
+            textBox_Edad.Size = new Size(45, 23);
+            textBox_Edad.TabIndex = 26;
+            textBox_Edad.KeyPress += verificarChar_Edad;
+            // 
             // Registro
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(617, 561);
+            Controls.Add(textBox_Edad);
             Controls.Add(btn_Cancelar);
             Controls.Add(DataTime_FechaCita);
             Controls.Add(DGV_pacientes);
             Controls.Add(comboBox_Discapacidad);
-            Controls.Add(Numerico_Edad);
             Controls.Add(label7);
             Controls.Add(label6);
             Controls.Add(label5);
@@ -287,7 +291,6 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "Registro";
             Text = "Registro";
-            ((System.ComponentModel.ISupportInitialize)Numerico_Edad).EndInit();
             ((System.ComponentModel.ISupportInitialize)DGV_pacientes).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -312,11 +315,11 @@
         private Label label5;
         private Label label6;
         private Label label7;
-        private NumericUpDown Numerico_Edad;
         private ComboBox comboBox_Discapacidad;
         private DataGridView DGV_pacientes;
         private TextBox textBox_Diagnostico;
         private DateTimePicker DataTime_FechaCita;
         private Button btn_Cancelar;
+        private TextBox textBox_Edad;
     }
 }

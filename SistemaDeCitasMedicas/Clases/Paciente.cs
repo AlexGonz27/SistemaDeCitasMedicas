@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace SistemaDeCitasMedicas.Clases
 {
+    //Clase de paciente para crear el objeto " Paciente " 
     public class Paciente
     {
         public int CI { get; set; }
